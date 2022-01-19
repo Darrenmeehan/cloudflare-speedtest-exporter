@@ -1,3 +1,5 @@
+---
+
 ignored:
   # Pin versions in npm
   - DL3016
