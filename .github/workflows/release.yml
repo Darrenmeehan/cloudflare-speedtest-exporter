@@ -43,7 +43,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: | 
-            darrenmeehan/cloudflare-speedtest-exporter:latest
-            darrenmeehan/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloudflare-speedtest-exporter:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
             ghcr.io/darrenmeehan/cloudflare-speedtest-exporter:latest
             ghcr.io/darrenmeehan/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
