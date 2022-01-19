@@ -28,7 +28,7 @@ jobs:
           VALIDATE_PYTHON_MYPY: false
           VALIDATE_PYTHON_PYLINT: false
           DOCKERFILE_HADOLINT_FILE_NAME: .hadolint.yaml
-          LINTER_RULES_PATH: ../../
+          LINTER_RULES_PATH: .
           ACTIONS_RUNNER_DEBUG: true
   build-image:
     name: Build Image
