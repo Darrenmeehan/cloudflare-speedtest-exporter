@@ -113,64 +113,47 @@ def parse(output):
     for line in output.splitlines():
         line = line.decode("utf-8")
         if DOWNLOAD_SPEED_KEY in line:
-            download_speed_in_mbps = (
-                line.replace(DOWNLOAD_SPEED_KEY, "")
-                .replace(SPEED_UNIT, "")
-                .replace("\x1b[32m", "")
-                .replace("\x1b[0m", "")
-                .replace("\n", "")
-                .replace("\x1b[1m", "")
-                .strip()
-            )
+            download_speed_in_mbps = extract_value(line)
             download_speed_in_bits_ps = megabits_to_bits(download_speed_in_mbps)
         if UPLOAD_SPEED_KEY in line:
-            upload_speed_in_mbps = (
-                line.replace(UPLOAD_SPEED_KEY, "")
-                .replace(SPEED_UNIT, "")
-                .replace("\x1b[32m", "")
-                .replace("\x1b[0m", "")
-                .replace("\n", "")
-                .replace("\x1b[1m", "")
-                .strip()
-            )
+            upload_speed_in_mbps = extract_value(line)
             upload_speed_in_bits_ps = megabits_to_bits(upload_speed_in_mbps)
         if "Server location:" in line:
-            actual_server = (
-                line.replace("Server location:", "")
-                .replace(SPEED_UNIT, "")
-                .replace("\x1b[32m", "")
-                .replace("\x1b[0m", "")
-                .replace("\n", "")
-                .replace("\x1b[1m", "")
-                .strip()
-            )
+            actual_server = extract_value(line)
         if "Jitter:" in line:
-            actual_jitter = (
-                line.replace("Jitter:", "")
-                .replace("ms", "")
-                .replace("\x1b[32m", "")
-                .replace("\x1b[0m", "")
-                .replace("\n", "")
-                .replace("\x1b[1m", "")
-                .replace("\x1b[35m", "")
-                .strip()
-            )
+            actual_jitter = extract_value(line)
         if "Latency:" in line:
-            actual_ping = (
-                line.replace("Latency:", "")
-                .replace("ms", "")
-                .replace("\x1b[32m", "")
-                .replace("\x1b[0m", "")
-                .replace("\n", "")
-                .replace("\x1b[1m", "")
-                .replace("\x1b[35m", "")
-                .strip()
-            )
+            actual_ping = extract_value(line)
     # FIXME actual_server is expected to be a number, but is a string from Cloudflare
     actual_server = 0
     return (
-        actual_server, actual_jitter, actual_ping,
-        download_speed_in_bits_ps, upload_speed_in_bits_ps, 1)
+        actual_server,
+        actual_jitter,
+        actual_ping,
+        download_speed_in_bits_ps,
+        upload_speed_in_bits_ps,
+        1,
+    )
+
+
+def extract_value(line):
+    return (
+        # Remove keys
+        line.replace(DOWNLOAD_SPEED_KEY, "")
+        .replace(UPLOAD_SPEED_KEY, "")
+        .replace(SPEED_UNIT, "")
+        .replace("ms", "")
+        .replace("Latency:", "")
+        .replace("Jitter:", "")
+        .replace("Server location:", "")
+        # Remove colours
+        .replace("\x1b[32m", "")
+        .replace("\x1b[0m", "")
+        .replace("\x1b[1m", "")
+        .replace("\x1b[35m", "")
+        .replace("\n", "")
+        .strip()
+    )
 
 
 @app.route("/metrics")
