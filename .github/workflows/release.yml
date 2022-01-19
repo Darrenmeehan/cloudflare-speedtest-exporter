@@ -43,5 +43,5 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: | 
-            darrenmeehan/cloudflare-speedtest-exporter:latest
-            darrenmeehan/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
+            darrenmeehan42/cloudflare-speedtest-exporter:latest
+            darrenmeehan42/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
