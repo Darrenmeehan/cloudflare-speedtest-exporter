@@ -2,20 +2,20 @@ FROM node:16.13.2-alpine3.15
 
 ARG SPEEDTEST_VERSION=2.0.3
 
-RUN adduser -D speedtest
-
-RUN apk add --update git
+RUN adduser -D speedtest && \
+    apk add --no-cache git=2.34.1
 
 WORKDIR /app
 COPY src/. .
 
-RUN npm install git+https://github.com/Darrenmeehan/speed-cloudflare-cli.git && \
-    apk add --update py-pip && \
+RUN npm install git+https://github.com/Darrenmeehan/speed-cloudflare-cli.git#master && \
+    apk add --no-cache py-pip=20.3.4 && \
     pip install --no-cache-dir -r requirements.txt && \
     chown -R speedtest:speedtest /app && \
     rm -rf \
      /tmp/* \
-     /app/requirements
+     /app/requirements \
+     /var/cache/apk/*
 
 USER speedtest
 
