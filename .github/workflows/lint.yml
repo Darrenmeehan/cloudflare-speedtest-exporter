@@ -27,6 +27,7 @@ jobs:
           VALIDATE_PYTHON_ISORT: false
           VALIDATE_PYTHON_MYPY: false
           VALIDATE_PYTHON_PYLINT: false
+          DOCKERFILE_HADOLINT_FILE_NAME: .hadolint.yaml
   build-image:
     name: Build Image
     runs-on: ubuntu-latest
