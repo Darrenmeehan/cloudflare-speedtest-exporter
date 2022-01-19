@@ -1,3 +1,5 @@
+---
+
 name: Release Docker Image with new Tag
 
 on:  
