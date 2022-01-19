@@ -50,4 +50,3 @@ jobs:
           push: false
           tags: | 
             darrenmeehan/cloudflare-speedtest-exporter:latest
-            darrenmeehan/cloudflare-speedtest-exporter:${{ steps.tag.outputs.tag }}
