@@ -1,4 +1,4 @@
-FROM node:16.14.0-alpine3.15
+FROM node:16.14.2-alpine3.15
 
 ARG SPEEDTEST_VERSION=2.0.3
 
